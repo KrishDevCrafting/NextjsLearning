@@ -13,7 +13,7 @@ export default function Login() {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:7001/user/register", {
+      const res = await axios.post("http://localhost:5000/user/register", {
         name,
         email,
         password,
@@ -40,7 +40,7 @@ export default function Login() {
             type="text"
             name="name"
             placeholder="Enter your name"
-            className="w-full border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 p-2 mb-4"
+            className="w-full border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 p-2 mb-4 text-black"
             onChange={(e) => setName(e.target.value)}
           />
 
@@ -49,7 +49,7 @@ export default function Login() {
             type="email"
             name="email"
             placeholder="Enter your email"
-            className="w-full border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 p-2 mb-4"
+            className="w-full border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 p-2 mb-4 text-black"
             onChange={(e) => setEmail(e.target.value)}
           />
 
@@ -58,14 +58,13 @@ export default function Login() {
             type="password"
             name="password"
             placeholder="Enter your password"
-            className="w-full border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 p-2 mb-4"
+            className="w-full border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 p-2 mb-4 text-black"
             onChange={(e) => setPassword(e.target.value)}
           />
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-          >
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
             Submit
           </button>
         </form>
