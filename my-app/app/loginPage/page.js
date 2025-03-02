@@ -8,6 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [gender, setGender] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,12 +19,13 @@ export default function Login() {
         name,
         email,
         password,
+        gender,
       });
 
       localStorage.setItem("token", res.data.token);
       alert("Login Successful!");
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong!");
+      setError("Registration failed");
       console.log(err.response?.data?.message || err.message);
     }
   };
@@ -64,26 +66,39 @@ export default function Login() {
           />
 
           <div className="m-4">
-            Gendar:
+            Gender:
             <label className="custom-checkbox">
               <input
                 type="radio"
-                name="gendar"
-                value="1"
+                value="Male"
+                checked={gender === "Male"}
+                onChange={(e) => setGender(e.target.value)}
                 id="checkbox-design"
               />
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
               Male
             </label>
             <label className="custom-checkbox">
               <input
                 type="radio"
-                name="gendar"
-                value="2"
+                value="Female"
+                checked={gender === "Female"}
+                onChange={(e) => setGender(e.target.value)}
                 id="checkbox-design"
               />
-              <span class="checkmark"></span>
+              <span className="checkmark"></span>
               Female
+            </label>
+            <label className="custom-checkbox">
+              <input
+                type="radio"
+                value="Other"
+                checked={gender === "Other"}
+                onChange={(e) => setGender(e.target.value)}
+                id="checkbox-design"
+              />
+              <span className="checkmark"></span>
+              Other
             </label>
           </div>
 
