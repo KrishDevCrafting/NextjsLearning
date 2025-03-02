@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import "../about/index.css";
 import axios from "axios";
 
 export default function Login() {
@@ -29,7 +30,7 @@ export default function Login() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg">
+      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg text-black">
         <h1 className="text-3xl font-bold text-center mb-6">Login Here</h1>
 
         {error && <p className="text-red-500 text-center">{error}</p>}
@@ -62,9 +63,34 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
+          <div className="m-4">
+            Gendar:
+            <label className="custom-checkbox">
+              <input
+                type="radio"
+                name="gendar"
+                value="1"
+                id="checkbox-design"
+              />
+              <span class="checkmark"></span>
+              Male
+            </label>
+            <label className="custom-checkbox">
+              <input
+                type="radio"
+                name="gendar"
+                value="2"
+                id="checkbox-design"
+              />
+              <span class="checkmark"></span>
+              Female
+            </label>
+          </div>
+
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          >
             Submit
           </button>
         </form>
