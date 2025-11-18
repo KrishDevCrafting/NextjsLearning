@@ -1,2 +1,0 @@
-# NextjsLearning
-hello-nextJs
