@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./components/Header";
 
 export default function Home() {
-  console.log("what type to girl you are!");
+  console.log("what type of girl you are!");
 
   return (
     <div>
