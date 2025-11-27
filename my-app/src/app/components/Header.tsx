@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <nav className="bg-white shadow-lg">
       <div className="flex items-center justify-between px-6 py-4">
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <h1 className="text-2xl font-bold text-blue-600">Logo</h1>
         </div>
         <div>
