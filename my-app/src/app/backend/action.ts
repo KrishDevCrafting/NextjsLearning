@@ -1,4 +1,3 @@
-// app/actions.ts
 "use server"; // <--- This magic line makes it a backend function!
 import { revalidatePath } from "next/cache";
 
@@ -6,6 +5,7 @@ import { revalidatePath } from "next/cache";
 const booksDB = [
   { id: 1, title: "The Great Gatsby" },
   { id: 2, title: "1984" },
+  { id: 3, title: "To Kill a Mockingbird" },
 ];
 
 export async function addBook(formData: FormData) {
@@ -20,6 +20,6 @@ export async function addBook(formData: FormData) {
 }
 
 export async function getBooks() {
-  // This runs on the server! Direct DB access allowed here.
   return booksDB;
 }
+// SEC 
