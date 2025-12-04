@@ -8,7 +8,7 @@ const SchibstedGrotesk = Schibsted_Grotesk({
 });
 
 const MartianMono = Martian_Mono({
-  variable: "--font-geist-mono",
+  variable: "--font-martian-mono",
   subsets: ["latin"],
 });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${SchibstedGrotesk.variable} ${MartianMono.variable}  min-h-screen antialiased`}
       >
         {children}
       </body>
