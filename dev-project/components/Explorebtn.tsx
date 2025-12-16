@@ -5,14 +5,15 @@ const Explorebtn = () => {
   return (
     <button
       className="mt-7 mx-auto"
-      
       id="explore-btn"
       type="button"
       onClick={() => alert("Hello Dear!")}
     >
-      Explorebtn
+      Explore button
     </button>
   );
 };
 
 export default Explorebtn;
+
+// kasnd
