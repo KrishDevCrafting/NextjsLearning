@@ -14,6 +14,15 @@ const page = () => {
       </p>
 
       <Explorebtn />
+
+      <div className="mt-20 space-y-7">
+        <h3>Features Events</h3>
+        <ul className="events">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((events) => (
+            <li key={events}>Events {events}</li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 };
