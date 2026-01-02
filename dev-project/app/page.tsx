@@ -1,6 +1,16 @@
 import Explorebtn from "@/components/Explorebtn";
 import React from "react";
-
+import EventCard from "../components/EventCard";
+const events = [
+  {
+    image: "/images/event1.png",
+    title: "Event 1",
+  },
+  {
+    image: "/images/event2.png",
+    title: "Event 2",
+  },
+];
 const page = () => {
   return (
     <section>
@@ -18,8 +28,10 @@ const page = () => {
       <div className="mt-20 space-y-7">
         <h3>Features Events</h3>
         <ul className="events">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((events) => (
-            <li key={events}>Events {events}</li>
+          {events.map((event) => (
+            <li key={event.title}>
+              <EventCard {...event} />
+            </li>
           ))}
         </ul>
       </div>
