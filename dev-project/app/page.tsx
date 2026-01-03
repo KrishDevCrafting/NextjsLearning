@@ -1,19 +1,8 @@
 import Explorebtn from "@/components/Explorebtn";
 import React from "react";
-
+import { events } from "@/lib/constant";
 import EventCard from "../components/EventCard";
-import Img from "./public/images/event1.png";
-import Img2 from "./public/images/event2.png";
-const events = [
-  {
-    image: "/images/event1.png",
-    title: "Event 1",
-  },
-  {
-    image: "/images/event2.png",
-    title: "Event 2",
-  },
-];
+
 const page = () => {
   return (
     <section>
@@ -32,7 +21,7 @@ const page = () => {
         <h3>Features Events</h3>
         <ul className="events">
           {events.map((event) => (
-            <li key={event.title}>
+            <li key={event.title} className="list-none">
               <EventCard {...event} />
             </li>
           ))}
