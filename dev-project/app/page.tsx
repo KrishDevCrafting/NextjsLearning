@@ -1,6 +1,9 @@
 import Explorebtn from "@/components/Explorebtn";
 import React from "react";
+
 import EventCard from "../components/EventCard";
+import Img from "./public/images/event1.png";
+import Img2 from "./public/images/event2.png";
 const events = [
   {
     image: "/images/event1.png",
@@ -35,6 +38,8 @@ const page = () => {
           ))}
         </ul>
       </div>
+
+      <div></div>
     </section>
   );
 };

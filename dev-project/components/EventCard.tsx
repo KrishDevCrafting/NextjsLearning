@@ -1,27 +1,27 @@
+"use client";
 import Link from "next/link";
-
 import Image from "next/image";
-
 
 interface Props {
   title: string;
   image: string;
 }
 
-const EventsCard = ({ title, image }: Props) => {
+const EventCard = ({ title, image }: Props) => {
+  console.log("IMAGE VALUE:", image);
+
   return (
-    <Link href={"/events"} id="event-card">
+    <Link href={`/events`} id="event-card">
       <Image
         src={image}
         alt={title}
         width={410}
-        height={300}
+        height={250}
         className="poster"
       />
-
       <p className="title">{title}</p>
     </Link>
   );
 };
 
-export default EventsCard;
+export default EventCard;
