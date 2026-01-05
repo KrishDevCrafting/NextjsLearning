@@ -49,3 +49,4 @@ const EventCard = ({ title, image, slug, location, date, time }: Props) => {
 export default EventCard;
 
 
+ 
