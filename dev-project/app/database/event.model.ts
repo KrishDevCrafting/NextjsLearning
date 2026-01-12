@@ -1,4 +1,4 @@
-import { Schema, model, models, Document, NextFunction } from "mongoose";
+import { Schema, model, models, Document } from "mongoose";
 
 // TypeScript interface for Event document
 export interface IEvent extends Document {
@@ -105,28 +105,50 @@ const EventSchema = new Schema<IEvent>(
     },
   },
   {
-    timestamps: true, // Auto-generate createdAt and updatedAt
+    timestamps: true,
   }
 );
 
 // Pre-save hook for slug generation and data normalization
-EventSchema.pre<IEvent>("save", function (next: NextFunction) {
-  // Generate slug only if title changed or document is new
-  if (this.isModified("title") || this.isNew) {
-    this.slug = generateSlug(this.title);
-  }
+EventSchema.pre("save", async function () {
+  try {
+    // Generate slug only if title changed or document is new
+    if (this.isModified("title") || this.isNew) {
+      let slug = generateSlug(this.title);
 
-  // Normalize date to ISO format if it's not already
-  if (this.isModified("date")) {
-    this.date = normalizeDate(this.date);
-  }
+      // Ensure slug uniqueness by appending number if needed
+      if (this.isNew) {
+        let count = 0;
+        let uniqueSlug = slug;
 
-  // Normalize time format (HH:MM)
-  if (this.isModified("time")) {
-    this.time = normalizeTime(this.time);
-  }
+        // Use this.constructor to avoid circular dependency
+        const EventModel = this.constructor as any;
 
-  next();
+        // Check if slug exists and append number if it does
+        while (await EventModel.findOne({ slug: uniqueSlug })) {
+          count++;
+          uniqueSlug = `${slug}-${count}`;
+        }
+
+        this.slug = uniqueSlug;
+      } else {
+        this.slug = slug;
+      }
+    }
+
+    // Normalize date to ISO format if it's not already
+    if (this.isModified("date")) {
+      this.date = normalizeDate(this.date);
+    }
+
+    // Normalize time format (HH:MM)
+    if (this.isModified("time")) {
+      this.time = normalizeTime(this.time);
+    }
+  } catch (error) {
+    // Throw error in async hooks instead of using next(error)
+    throw error;
+  }
 });
 
 // Helper function to generate URL-friendly slug
@@ -181,10 +203,8 @@ function normalizeTime(timeString: string): string {
   return `${hours.toString().padStart(2, "0")}:${minutes}`;
 }
 
-// Create unique index on slug for better performance
+// Create indexes
 EventSchema.index({ slug: 1 }, { unique: true });
-
-// Create compound index for common queries
 EventSchema.index({ date: 1, mode: 1 });
 
 const Event = models.Event || model<IEvent>("Event", EventSchema);
