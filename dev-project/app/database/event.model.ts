@@ -203,7 +203,7 @@ function normalizeTime(timeString: string): string {
   return `${hours.toString().padStart(2, "0")}:${minutes}`;
 }
 
-// Create indexes
+
 EventSchema.index({ slug: 1 }, { unique: true });
 EventSchema.index({ date: 1, mode: 1 });
 
