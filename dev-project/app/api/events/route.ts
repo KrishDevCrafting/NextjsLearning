@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 
 import connectDB from "@/lib/mongoosedb";
 import Event from "@/app/database/event.model";
-
+import { v2 as cloudinary } from "cloudinary";
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
@@ -15,19 +15,36 @@ export async function POST(req: NextRequest) {
         { message: "Invalid JSON data format" },
         { status: 400 }
       );
-      const file = formData.get("image") as File;
-
-      if (!file) {
-        return NextResponse.json(
-          {
-            message: "Image file is required",
-          },
-          {
-            status: 400,
-          }
-        );
-      }
     }
+    const file = formData.get("image") as File;
+
+    if (!file) {
+      return NextResponse.json(
+        {
+          message: "Image file is required",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const uploadResult = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        {
+          resource_type: "image",
+          folder: "DevEvent",
+        },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      )
+        .end(buffer);
+    });
+
     const createdEvent = await Event.create(event);
     return NextResponse.json({
       message: "Events created Successfully!",
