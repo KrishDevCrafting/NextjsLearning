@@ -32,19 +32,20 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const uploadResult = await new Promise((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        {
-          resource_type: "image",
-          folder: "DevEvent",
-        },
-        (error, result) => {
-          if (error) return reject(error);
-          resolve(result);
-        }
-      )
+      cloudinary.uploader
+        .upload_stream(
+          {
+            resource_type: "image",
+            folder: "DevEvent",
+          },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result);
+          }
+        )
         .end(buffer);
     });
-
+    event.image = (uploadResult as { secure_url: string }).secure_url;
     const createdEvent = await Event.create(event);
     return NextResponse.json({
       message: "Events created Successfully!",
