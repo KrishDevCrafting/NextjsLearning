@@ -3,6 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongoosedb";
 import Event from "@/app/database/event.model";
 import { v2 as cloudinary } from "cloudinary";
+import { events } from "@/lib/constant";
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
@@ -59,6 +60,33 @@ export async function POST(req: NextRequest) {
         error: e instanceof Error ? e.message : "Unknown",
       },
       { status: 500 }
+    );
+  }
+}
+
+export async function GET() {
+  try {
+    await connectDB();
+
+    const events = await Event.find().sort({
+      created: -1,
+    });
+    return NextResponse.json(
+      {
+        message: "Events fetched succesfully",
+        events,
+      },
+      { status: 200 }
+    );
+  } catch (e) {
+    return NextResponse.json(
+      {
+        message: "Events fetching failed",
+        error: e instanceof Error ? e.message : "Unknown",
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
