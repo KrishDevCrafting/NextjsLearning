@@ -16,7 +16,7 @@ const EventCard = ({ title, image, slug, location, date, time }: Props) => {
   console.log("IMAGE VALUE:", image);
 
   return (
-    <Link href={`/events`} id="event-card">
+    <Link href={`/events/${slug}`} id="event-card">
       <Image
         src={image}
         alt={title}
@@ -47,6 +47,3 @@ const EventCard = ({ title, image, slug, location, date, time }: Props) => {
 };
 
 export default EventCard;
-
-
- 
