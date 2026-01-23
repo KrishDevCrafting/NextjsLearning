@@ -14,3 +14,5 @@ const EventsDetailsPage = async ({
 };
 
 export default EventsDetailsPage;
+
+// git check
