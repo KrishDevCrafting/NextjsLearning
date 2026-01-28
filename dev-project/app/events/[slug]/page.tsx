@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 import Image from "next/image";
+import BookEvent from "@/components/BookEvent";
 
 const EventTags = ({ tags }: { tags: string[] }) => (
   <div>
@@ -62,6 +63,9 @@ const EventsDetailsPage = async ({
     },
   } = await request.json();
   if (!description) return notFound();
+
+  const booking = 10;
+
   return (
     <section id="event">
       <div>
@@ -113,7 +117,19 @@ const EventsDetailsPage = async ({
         {/* {Right Side Booking form} */}
 
         <aside className="booking">
-          <p className="text-lg font-semibold">Book Events</p>
+          {/* <p className="text-lg font-semibold">Book Events</p> */}
+          <div className="signup-card">
+            <h2>Book Your Spot</h2>
+            {booking > 0 ? (
+              <p className="text-sm">
+                Join {booking} people who have already booked there spot!
+              </p>
+            ) : (
+              <p className="text-sm">Be the fist to book your spot!</p>
+            )}
+
+            <BookEvent />
+          </div>
         </aside>
       </div>
     </section>
