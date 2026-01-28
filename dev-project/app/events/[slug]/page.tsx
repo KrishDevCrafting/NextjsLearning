@@ -2,6 +2,17 @@ import { notFound } from "next/navigation";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 import Image from "next/image";
 
+
+
+const EventAgenda = ({agendaItem}:{agendaItem: string[]}) => {
+  return (
+    <div>
+    
+    
+    </div>
+  );
+}
+
 const EventDetailItem = ({
   icon,
   alt,
