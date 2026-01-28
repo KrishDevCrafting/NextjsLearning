@@ -2,16 +2,27 @@ import { notFound } from "next/navigation";
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 import Image from "next/image";
 
+const EventTags = ({ tags }: { tags: string[] }) => (
+  <div>
+    {tags.map((tag) => (
+      <div className="pill mt-2 flex justify-center items-center" key={tag}>
+        {tag}
+      </div>
+    ))}
+  </div>
+);
 
-
-const EventAgenda = ({agendaItem}:{agendaItem: string[]}) => {
+const EventAgenda = ({ agendaItem }: { agendaItem: string[] }) => {
   return (
-    <div>
-    
-    
+    <div className="agenda">
+      <h2>
+        {agendaItem.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </h2>
     </div>
   );
-}
+};
 
 const EventDetailItem = ({
   icon,
@@ -47,6 +58,7 @@ const EventsDetailsPage = async ({
       agenda,
       audience,
       tags,
+      organizer,
     },
   } = await request.json();
   if (!description) return notFound();
@@ -88,6 +100,14 @@ const EventsDetailsPage = async ({
               label={audience}
             />
           </section>
+
+          <EventAgenda agendaItem={JSON.parse(agenda[0])} />
+
+          <section className="flex-col-gap-2">
+            <h2>About the organizer</h2>
+            <p>{organizer}</p>
+          </section>
+          <EventTags tags={JSON.parse(tags[0])} />
         </div>
 
         {/* {Right Side Booking form} */}
