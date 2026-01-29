@@ -15,13 +15,24 @@ const EventTags = ({ tags }: { tags: string[] }) => (
 
 const EventAgenda = ({ agendaItem }: { agendaItem: string[] }) => {
   return (
-    <div className="agenda">
-      <h2>
-        {agendaItem.map((item) => (
-          <li key={item}>{item}</li>
+    <section className="mt-6">
+      <h2 className="text-2xl font-bold mb-4">Agenda</h2>
+      <ul className="flex flex-col gap-3">
+        {agendaItem.map((item, index) => (
+          <li
+            key={item}
+            className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-colors duration-300"
+          >
+            <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary/20 text-primary text-xs font-mono mt-0.5">
+              {index + 1}
+            </span>
+            <span className="text-white/80 leading-relaxed max-w-[90%]">
+              {item}
+            </span>
+          </li>
         ))}
-      </h2>
-    </div>
+      </ul>
+    </section>
   );
 };
 
@@ -115,10 +126,9 @@ const EventsDetailsPage = async ({
         </div>
 
         {/* {Right Side Booking form} */}
-
-        <aside className="booking">
+        <aside className="w-full p-4 lg:border-l lg:border-gray-700 flex justify-center">
           {/* <p className="text-lg font-semibold">Book Events</p> */}
-          <div className="signup-card">
+          <div className="flex w-full flex-col gap-6 rounded-[10px] border border-dark-200 bg-dark-100 px-5 py-6 shadow-[0px_4px_40px_0px_#00000066]">
             <h2>Book Your Spot</h2>
             {booking > 0 ? (
               <p className="text-sm">

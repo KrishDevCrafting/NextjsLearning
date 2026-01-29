@@ -13,7 +13,7 @@ const BookEvent = () => {
   return (
     <div id="book-event">
       {submitted ? (
-        <p>Thank you for booking! We can't wait to see you there!</p>
+        <p>Thank you for signing up!</p>
       ) : (
         <form onSubmit={handleSubmit}>
           <div>
