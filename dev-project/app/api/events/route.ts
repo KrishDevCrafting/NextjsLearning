@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongoosedb";
 import Event from "@/app/database/event.model";
 import { v2 as cloudinary } from "cloudinary";
-import { events } from "@/lib/constant";
+// import { events } from "@/lib/constant";
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     } catch (e) {
       return NextResponse.json(
         { message: "Invalid JSON data format" },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const file = formData.get("image") as File;
@@ -26,10 +26,11 @@ export async function POST(req: NextRequest) {
         },
         {
           status: 400,
-        }
+        },
       );
     }
-
+    let tags = JSON.parse(formData.get("tags") as string);
+    let agenda = JSON.parse(formData.get("agenda") as string);
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const uploadResult = await new Promise((resolve, reject) => {
@@ -42,12 +43,16 @@ export async function POST(req: NextRequest) {
           (error, result) => {
             if (error) return reject(error);
             resolve(result);
-          }
+          },
         )
         .end(buffer);
     });
     event.image = (uploadResult as { secure_url: string }).secure_url;
-    const createdEvent = await Event.create(event);
+    const createdEvent = await Event.create({
+      ...event,
+      tags: tags,
+      agenda: agenda,
+    });
     return NextResponse.json({
       message: "Events created Successfully!",
       events: createdEvent,
@@ -59,7 +64,7 @@ export async function POST(req: NextRequest) {
         message: "Event Creation Failed",
         error: e instanceof Error ? e.message : "Unknown",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -76,7 +81,7 @@ export async function GET() {
         message: "Events fetched succesfully",
         events,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (e) {
     return NextResponse.json(
@@ -86,7 +91,7 @@ export async function GET() {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }
