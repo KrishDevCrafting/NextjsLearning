@@ -9,11 +9,11 @@ export const getSimilarEvents = async (slug: string) => {
     return await Event.find({
       _id: {
         $ne: events._id,
-        tags: {
-          $in: events.tags,
-        },
       },
-    });
+      tags: {
+        $in: events.tags,
+      },
+    }).lean();
   } catch {
     return [];
   }
