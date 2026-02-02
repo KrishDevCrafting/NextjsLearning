@@ -151,7 +151,15 @@ const EventsDetailsPage = async ({
         <div className="events">
           {similarEvents.length > 0 &&
             similarEvents.map((event: IEvent) => (
-              <EventCard key={String(event._id)} {...event} />
+              <EventCard
+                key={String(event._id)}
+                title={event.title}
+                image={event.image}
+                slug={event.slug}
+                location={event.location}
+                date={event.date}
+                time={event.time}
+              />
             ))}
         </div>
       </div>

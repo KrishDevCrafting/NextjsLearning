@@ -6,7 +6,7 @@ export const getSimilarEvents = async (slug: string) => {
   try {
     await connectDB();
     const events = await Event.findOne({ slug });
-    return await Event.find({
+    const similarEvents = await Event.find({
       _id: {
         $ne: events._id,
       },
@@ -14,6 +14,8 @@ export const getSimilarEvents = async (slug: string) => {
         $in: events.tags,
       },
     }).lean();
+    // Serialize to plain JSON to avoid Mongoose ObjectId serialization issues
+    return JSON.parse(JSON.stringify(similarEvents));
   } catch {
     return [];
   }
