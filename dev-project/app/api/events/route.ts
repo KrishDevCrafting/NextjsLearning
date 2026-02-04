@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 
-import connectDB from "@/lib/mongoosedb";
+import connectDB from "@/lib/db.server";
 import Event from "@/app/database/event.model";
 import { v2 as cloudinary } from "cloudinary";
 // import { events } from "@/lib/constant";
@@ -32,9 +32,6 @@ export async function POST(req: NextRequest) {
     let tags = JSON.parse(formData.get("tags") as string);
     let agenda = JSON.parse(formData.get("agenda") as string);
 
-
-
-    
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const uploadResult = await new Promise((resolve, reject) => {

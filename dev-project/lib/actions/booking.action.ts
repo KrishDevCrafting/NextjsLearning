@@ -1,5 +1,7 @@
+"use server";
+
 import Booking from "@/app/database/booking.model";
-import connectDB from "../mongoosedb";
+import connectDB from "../db.server";
 
 export const createBooking = async ({
   eventId,

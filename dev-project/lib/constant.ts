@@ -1,3 +1,5 @@
+"use"
+
 export const events = [
   {
     slug: "react-conf-2024",
