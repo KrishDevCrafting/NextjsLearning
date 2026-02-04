@@ -1,3 +1,4 @@
+"use server";
 import mongoose from "mongoose";
 
 // Define the connection cache type
@@ -34,7 +35,7 @@ async function connectDB(): Promise<typeof mongoose> {
   // Validate MongoDB URI exists
   if (!MONGODB_URI) {
     throw new Error(
-      "Please define the MONGODB_URI environment variable inside .env.local"
+      "Please define the MONGODB_URI environment variable inside .env.local",
     );
   }
 
