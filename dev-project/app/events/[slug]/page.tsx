@@ -61,21 +61,26 @@ const EventsDetailsPage = async ({
 }) => {
   const { slug } = await params;
   const request = await fetch(`${BASE_URL}/api/events/${slug}`);
+  const data = await request.json();
+  const event = data?.event;
+
+  if (!event) {
+    return notFound();
+  }
+
   const {
-    event: {
-      description,
-      image,
-      overview,
-      date,
-      time,
-      location,
-      mode,
-      agenda,
-      audience,
-      tags,
-      organizer,
-    },
-  } = await request.json();
+    description,
+    image,
+    overview,
+    date,
+    time,
+    location,
+    mode,
+    agenda,
+    audience,
+    tags,
+    organizer,
+  } = event;
   if (!description) return notFound();
 
   const booking = 10;
@@ -141,10 +146,7 @@ const EventsDetailsPage = async ({
               <p className="text-sm">Be the first to book your spot!</p>
             )}
 
-            <BookEvent 
-            eventId={event._id}
-            slug={event.slug}
-            />
+            <BookEvent eventId={event._id} slug={event.slug} />
           </div>
         </aside>
       </div>

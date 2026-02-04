@@ -1,6 +1,6 @@
 "use server";
 import Event from "@/app/database/event.model";
-import connectDB from "../mongoosedb";
+import connectDB from "../db.server";
 
 export const getSimilarEvents = async (slug: string) => {
   try {
