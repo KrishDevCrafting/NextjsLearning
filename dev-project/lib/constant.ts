@@ -1,4 +1,4 @@
-"use"
+"use server"
 
 export const events = [
   {
