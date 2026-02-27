@@ -60,6 +60,31 @@ const EventsDetailsPage = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   const request = await fetch(`${BASE_URL}/api/events/${slug}`);
   const data = await request.json();
   const event = data?.event;
