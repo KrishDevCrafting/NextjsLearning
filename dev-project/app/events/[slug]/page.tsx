@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+import { connection } from "next/server";
 import Image from "next/image";
 import BookEvent from "@/components/BookEvent";
-import { IEvent } from "@/app/database/event.model";
+import Event, { IEvent } from "@/app/database/event.model";
 import { getSimilarEvents } from "@/lib/actions/event.action";
 import EventCard from "@/components/EventCard";
+import connectDB from "@/lib/db.server";
 
 const EventTags = ({ tags }: { tags: string[] }) => (
   <div>
@@ -61,33 +62,9 @@ const EventsDetailsPage = async ({
 }) => {
   const { slug } = await params;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  const request = await fetch(`${BASE_URL}/api/events/${slug}`);
-  const data = await request.json();
-  const event = data?.event;
+  await connection();
+  await connectDB();
+  const event = await Event.findOne({ slug: slug.trim().toLowerCase() }).lean();
 
   if (!event) {
     return notFound();
